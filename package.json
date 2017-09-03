@@ -6,20 +6,20 @@
   "author": "suttang <suttang@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "compile": "ts-node app/fuse",
+    "build:assets": "node fuse",
+    "start:dev": "npm run build:assets & npm run start",
     "start": "electron ."
   },
   "devDependencies": {
-    "@types/node": "^8.0.24",
-    "@types/react": "^16.0.2",
-    "@types/react-dom": "^15.5.3",
-    "@types/react-redux": "^5.0.4",
+    "@types/node": "^8.0.26",
+    "@types/react": "^16.0.5",
+    "@types/react-dom": "^15.5.4",
+    "@types/react-redux": "^5.0.6",
     "electron": "1.7.5",
     "fuse-box": "^2.2.2",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
-    "ts-node": "^3.3.0",
-    "typescript": "^2.4.2"
+    "typescript": "^2.5.2"
   },
   "dependencies": {
     "react": "^15.6.1",
