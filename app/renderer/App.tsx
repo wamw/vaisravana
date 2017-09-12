@@ -1,23 +1,21 @@
 import * as React from 'react'
 import { Provider } from 'react-redux'
+import { Router, Route, browserHistory } from 'react-router'
+import { syncHistoryWithStore } from 'react-router-redux'
+import { ProjectList } from './containers/project-list/container'
 import { configureStore } from './store'
-import { ProjectList } from './containers/ProjectList/Container'
 
 const store = configureStore()
+
+const history = syncHistoryWithStore(browserHistory, store)
 
 export class App extends React.Component<{}, {}> {
   render() {
     return (
       <Provider store={store}>
-        <div>
-          <ProjectList />
-          <p>aiueo</p>
-          <p>aiueo</p>
-          <p>aiue2o</p>
-          <p>aiu2easdfo</p>
-          <p>aiueo</p>
-          <p><input type="text" /></p>
-        </div>
+        <Router history={history}>
+          <Route path="/" component={ProjectList}/>
+        </Router>
       </Provider>
     )
   }

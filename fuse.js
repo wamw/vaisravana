@@ -23,6 +23,7 @@ Sparky.task('bundle', () => {
     output: 'app/dist/js/$name.js',
     target: 'electron',
     cache: !isProduction,
+    // cache: false,
     sourceMaps: true,
     tsConfig: './tsconfig.json',
   })
