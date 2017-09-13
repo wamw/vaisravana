@@ -1,15 +1,21 @@
 {
   "name": "vaisravana",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/main.js",
   "repository": "git@github.com:wamw/vaisravana.git",
   "author": "suttang <suttang@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "build:main": "tsc",
+    "build:renderer": "tsc",
+    "start:dev": "electron ."
+  },
   "devDependencies": {
     "@types/node": "^8.0.28",
     "@types/webpack": "^3.0.10",
     "awesome-typescript-loader": "^3.2.3",
     "electron": "^1.7.6",
+    "html-webpack-plugin": "^2.30.1",
     "tslint": "^5.7.0",
     "tslint-config-standard": "^6.0.1",
     "typescript": "^2.5.2",

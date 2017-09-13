@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "noUnusedLocals" : true,
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "target": "es2015",
+    "pretty": true,
+    "newLine": "LF",
+    "sourceMap": true,
+    "allowJs": true,
+    "jsx": "preserve",
+    "outDir": "dist"
+  },
+  "files": [
+    "./app/main/main.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
