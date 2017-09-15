@@ -1,7 +1,7 @@
 import * as electron from 'electron'
-import { app, BrowserWindow } from 'electron'
+const { app, BrowserWindow } = electron
 
-let mainWindow: Electron.BrowserWindow
+let mainWindow: Electron.BrowserWindow | null
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

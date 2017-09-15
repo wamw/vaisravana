@@ -6,9 +6,11 @@
   "author": "suttang <suttang@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build:main": "tsc",
-    "build:renderer": "tsc",
-    "start:dev": "electron ."
+    "bundle:main": "tsc",
+    "bundle:renderer": "tsc",
+    "start:dev": "electron .",
+    "start": "electron .",
+    "prestart": "npm run bundle:main"
   },
   "devDependencies": {
     "@types/node": "^8.0.28",
@@ -18,6 +20,7 @@
     "html-webpack-plugin": "^2.30.1",
     "tslint": "^5.7.0",
     "tslint-config-standard": "^6.0.1",
+    "tslint-loader": "^3.5.3",
     "typescript": "^2.5.2",
     "webpack": "^3.5.6",
     "webpack-dev-server": "^2.7.1"

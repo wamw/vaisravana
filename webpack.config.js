@@ -1,15 +1,13 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const isProduction = process.env.NODE_ENV === 'production'
-
 const webpackConfig = {
   entry: {
     app: ['./app/renderer/index.ts'],
   },
   output: {
-    path: path.resolve(__dirname, 'app/renderer-dist'),
-    filename: 'app.js',
+    path: path.resolve(__dirname, 'app/dist'),
+    filename: 'renderer.js',
     publicPath: isProduction ? './' : `http://localhost:${argv.port || 8000}/`,
   },
   resolve: {
@@ -53,10 +51,7 @@ const webpackConfig = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'app/renderer/assets/index.html',
-    }),
-    new CopyWebpackPlugin([
-      { from: 'app/renderer/assets/static', to: 'assets' }
-    ])
+    })
   ]
 }
 
