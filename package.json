@@ -1,13 +1,13 @@
 {
   "name": "vaisravana",
   "version": "1.0.0",
-  "main": "dist/main.js",
+  "main": "dist/main/main.js",
   "repository": "git@github.com:wamw/vaisravana.git",
   "author": "suttang <suttang@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "bundle:main": "tsc",
-    "bundle:renderer": "tsc",
+    "bundle:main": "tsc -p ./tsconfig.main.json",
+    "bundle:renderer": "webpack",
     "start:dev": "electron .",
     "start": "electron .",
     "prestart": "npm run bundle:main"

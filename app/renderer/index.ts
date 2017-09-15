@@ -1,3 +1,3 @@
-const f = (x: number): number => {
-  return x * x
-}
+import { sayHello } from '../shared/message'
+
+sayHello()

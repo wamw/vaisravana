@@ -6,19 +6,27 @@ const webpackConfig = {
     app: ['./app/renderer/index.ts'],
   },
   output: {
-    path: path.resolve(__dirname, 'app/dist'),
+    path: path.resolve(__dirname, 'dist/renderer'),
     filename: 'renderer.js',
-    publicPath: isProduction ? './' : `http://localhost:${argv.port || 8000}/`,
+    // publicPath: './',
   },
   resolve: {
     extensions: ['.ts', '.js'],
   },
   target: 'electron-renderer',
-  devtool: isProduction ? false : 'eval',
+  devtool: 'sourcemap',
   node: {
     __filename: true,
     __dirname: true,
   },
+  externals: [
+    (context, request, callback) => {
+      if (/\.\.\/shared\/.+/.test(request)) {
+        return callback(null, `commonjs ${request}`)
+      }
+      callback()
+    }
+  ],
   module: {
     rules: [
       {
@@ -31,7 +39,7 @@ const webpackConfig = {
         }
       }, {
         test: /\.ts$/,
-        loader: 'awesome-typescript-loader',
+        loader: 'awesome-typescript-loader?configFileName=tsconfig.renderer.json',
       },
       {
         test: /\.scss$/,
@@ -42,7 +50,7 @@ const webpackConfig = {
         }, {
           loader: 'sass-loader',
           options: {
-            sourceMap: !isProduction,
+            sourceMap: true,
           }
         }]
       }
@@ -50,14 +58,9 @@ const webpackConfig = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'app/renderer/assets/index.html',
+      template: 'app/renderer/index.html',
     })
   ]
-}
-
-if (isProduction) {
-  // ...
-  // --optimize-minimize がバグってるので uglifyjs plugin 入れるとか
 }
 
 module.exports = webpackConfig

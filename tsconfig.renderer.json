@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "noUnusedLocals" : true,
+    "moduleResolution": "node",
+    "module": "es6",
+    "target": "es6",
+    "pretty": true,
+    "newLine": "LF",
+    "sourceMap": true,
+    "allowJs": true,
+    "jsx": "preserve",
+    "outDir": "dist"
+  },
+  "files": [
+    "./app/renderer/index.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
