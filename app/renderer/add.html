@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>add.html</h1>
+    <h2>リポジトリ選択</h2>
+    <div>
+      <a href="index.html">戻る</a>
+    </div>
+    <script>
+      const { ipcRenderer } = require('electron')
+      const isGithubConnected = localStorage.getItem('isGithubConnected')
+      if (!isGithubConnected) {
+        ipcRenderer.once('github-connected', (event, code) => {
+          console.log('コネクトしたよ')
+          console.log(code)
+        })
+        ipcRenderer.send('connect-to-github')
+      }
+    </script>
+  </body>
+</html>

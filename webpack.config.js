@@ -59,6 +59,10 @@ const webpackConfig = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'app/renderer/index.html',
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'add.html',
+      template: 'app/renderer/add.html',
     })
   ]
 }
