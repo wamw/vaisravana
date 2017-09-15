@@ -1,6 +1,6 @@
 import * as electron from 'electron'
 import * as dotenv from 'dotenv'
-import { openOAuthWindow, getToken, GithubOAuthCredentials } from './auth/github'
+import { getToken, GithubOAuthCredentials } from './auth/github'
 // import * as GitHubApi from 'github'
 import { sayHello } from '../shared/message'
 

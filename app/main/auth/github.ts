@@ -27,7 +27,7 @@ function createOAuthWindow(): Electron.BrowserWindow {
 function extractCode(url: string): string {
   const rawCode: RegExpExecArray | null = /code=([^&]*)/.exec(url) || null
   const code: string = (rawCode && rawCode.length > 1) ? rawCode[1] : ''
-  const error: RegExpExecArray | null = /\?error=(.+)$/.exec(url)
+  const error: RegExpExecArray | null = /\?error=(.+)$/.exec(url) || null
 
   // Close the browser if code found or error
   if ((code || error) && oauthWindow) {
@@ -41,8 +41,8 @@ function extractCode(url: string): string {
   return code
 }
 
-export function openOAuthWindow(credentials: GithubOAuthCredentials): Promise<{}> {
-  const promise = new Promise((resolve, reject) => {
+export function getCode(credentials: GithubOAuthCredentials): Promise<string> {
+  return new Promise((resolve, reject) => {
     if (!oauthWindow || oauthWindow.isDestroyed) {
       oauthWindow = createOAuthWindow()
       oauthWindow.on('close', () => {
@@ -61,11 +61,10 @@ export function openOAuthWindow(credentials: GithubOAuthCredentials): Promise<{}
     oauthWindow.loadURL(uri)
     oauthWindow.show()
   })
-
-  return promise
 }
 
-export async function getToken(credentials: GithubOAuthCredentials, code: string): Promise<string> {
+export async function getToken(credentials: GithubOAuthCredentials): Promise<string> {
+  const code = await getCode(credentials)
   const uri = `${accessTokenUri}?code=${code}&client_id=${credentials.client_id}&client_secret=${credentials.client_secret}`
   const headers = { 'Accept': 'application/json' }
   const response = await fetch(uri, { headers })
