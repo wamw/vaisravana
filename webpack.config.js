@@ -63,6 +63,10 @@ const webpackConfig = {
     new HtmlWebpackPlugin({
       filename: 'add.html',
       template: 'app/renderer/add.html',
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'check_token.html',
+      template: 'app/renderer/check_token.html',
     })
   ]
 }

@@ -5,8 +5,7 @@
     <title></title>
   </head>
   <body>
-    <h1>add.html</h1>
-    <h2>リポジトリ選択</h2>
+    <h1>トークンチェックします</h1>
     <div>
       <a href="index.html">戻る</a>
     </div>
@@ -14,9 +13,12 @@
       const { ipcRenderer } = require('electron')
       const { hasGithubToken, setGithubToken, getGithubToken } = require('./store')
 
-      if (!hasGithubToken()) {
+      if (hasGithubToken()) {
+        location.href = './add.html'
+      } else {
         ipcRenderer.once('github-connected', (event, token) => {
           setGithubToken(token)
+          location.href = './add.html'
         })
         ipcRenderer.send('connect-to-github')
       }

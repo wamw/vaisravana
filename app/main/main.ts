@@ -29,25 +29,13 @@ app.on('ready', () => {
   sayHello()
 })
 
-ipcMain.on('connect-to-github', (event: Electron.Event) => {
+ipcMain.on('connect-to-github', async (event: Electron.Event) => {
   const credentials: GithubOAuthCredentials = {
     scopes: ['user', 'public_repo', 'repo'],
     client_id: process.env.GITHUB_CLIENT_ID || '',
     client_secret: process.env.GITHUB_CLIENT_SECRET || ''
   }
-  // const code: string = getCode(credentials)
-  // console.log(code)
-  // const token: string = getToken(credentials, code)
-  // event.sender.send('github-connected', token)
 
-  getToken(credentials).then((token: string) => {
-    console.log(token)
-  })
-
-  // openOAuthWindow(credentials).then((code: string) => {
-  //   return getToken(credentials, code)
-  // }).then((response) => {
-  //   console.log(response)
-  //   event.sender.send('github-connected', 'aoieop')
-  // })
+  const token: string = await getToken(credentials)
+  event.sender.send('github-connected', token)
 })
