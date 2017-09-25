@@ -10,6 +10,7 @@
     "bundle:renderer": "webpack",
     "start:dev": "electron .",
     "start": "electron .",
+    "watch": "nodemon -w dist -x 'electron .' & npm run bundle:main -- -w",
     "prestart": "npm run bundle:main && npm run bundle:renderer"
   },
   "devDependencies": {
@@ -23,6 +24,7 @@
     "github": "^11.0.0",
     "html-webpack-plugin": "^2.30.1",
     "node-fetch": "^1.7.3",
+    "nodemon": "^1.12.1",
     "tslint": "^5.7.0",
     "tslint-config-standard": "^6.0.1",
     "tslint-loader": "^3.5.3",
