@@ -10,7 +10,9 @@
     "bundle:renderer": "webpack",
     "start:dev": "electron .",
     "start": "electron .",
-    "watch": "nodemon -w dist -x 'electron .' & npm run bundle:main -- -w",
+    "watch": "npm run watch:renderer & npm run watch:main",
+    "watch:main": "nodemon -w dist -x 'electron .' & npm run bundle:main -- -w",
+    "watch:renderer": "webpack-dev-server --content-base ./dist/renderer --hot --colors --port 8000",
     "prestart": "npm run bundle:main && npm run bundle:renderer"
   },
   "devDependencies": {
