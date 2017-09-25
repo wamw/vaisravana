@@ -1,3 +1,9 @@
-import { sayHello } from '../shared/message'
+import { store, Store } from './store'
 
-sayHello()
+declare global {
+  interface Window {
+    store: Store
+  }
+}
+
+window.store = store
