@@ -12,13 +12,12 @@
     </div>
     <script>
       const { ipcRenderer } = require('electron')
-      const { hasGithubToken, setGithubToken, getGithubToken } = require('./store')
-
-      if (!hasGithubToken()) {
-        ipcRenderer.once('github-connected', (event, token) => {
-          setGithubToken(token)
+      const token = store.getGithubToken()
+      if (token) {
+        ipcRenderer.once('response-github-repositories', (event, repositories) => {
+          console.log(repositories)
         })
-        ipcRenderer.send('connect-to-github')
+        ipcRenderer.send('request-github-repositories', token)
       }
     </script>
   </body>

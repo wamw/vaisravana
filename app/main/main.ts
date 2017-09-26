@@ -1,7 +1,7 @@
 import * as electron from 'electron'
 import * as dotenv from 'dotenv'
+import * as Github from 'github'
 import { getToken, GithubOAuthCredentials } from './auth/github'
-// import * as GitHubApi from 'github'
 import { sayHello } from '../shared/message'
 
 dotenv.config()
@@ -10,6 +10,7 @@ const isProduction = process.env.NODE_ENV === 'production'
 
 const { app, BrowserWindow, ipcMain } = electron
 let mainWindow: Electron.BrowserWindow | null
+const github = new Github()
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -47,4 +48,25 @@ ipcMain.on('connect-to-github', async (event: Electron.Event) => {
 
   const token: string = await getToken(credentials)
   event.sender.send('github-connected', token)
+})
+
+interface GithubRepository {
+  name: string
+}
+
+ipcMain.on('request-github-repositories', async (event: Electron.Event, token: string) => {
+  const getAll = async (data: GithubRepository[], link: string = ''): Promise<{}> => {
+    if (github.hasNextPage(link)) {
+      const response = await github.getNextPage(link)
+      data = data.concat(response.data)
+      return await getAll(data, response.meta.link)
+    }
+    return Promise.resolve(data)
+  }
+
+  github.authenticate({ type: 'oauth', token })
+  const response = await github.repos.getAll({ visibility: 'all', per_page: 100 })
+  const data = await getAll(response.data, response.meta.link)
+
+  event.sender.send('response-github-repositories', data)
 })

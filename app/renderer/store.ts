@@ -6,8 +6,12 @@ export function setGithubToken(token: string): void {
   localStorage.setItem('github_oauth_token', token)
 }
 
-export function getGithubToken(): void {
-  localStorage.getItem('github_oauth_token')
+export function getGithubToken(): string {
+  const token = localStorage.getItem('github_oauth_token')
+  if (token) {
+    return token
+  }
+  return ''
 }
 
 export interface Store {
