@@ -1,5 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const argv = require('minimist')(process.argv.slice(2))
+const isProduction = process.env.NODE_ENV === 'production'
 
 const webpackConfig = {
   entry: {
@@ -8,6 +10,7 @@ const webpackConfig = {
   output: {
     path: path.resolve(__dirname, 'dist/renderer'),
     filename: 'renderer.js',
+    publicPath: isProduction ? './' : `http://localhost:${argv.port || 8000}/`,
     // publicPath: './',
   },
   resolve: {
@@ -59,14 +62,17 @@ const webpackConfig = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'app/renderer/index.html',
+      inject: 'head'
     }),
     new HtmlWebpackPlugin({
       filename: 'add.html',
       template: 'app/renderer/add.html',
+      inject: 'head'
     }),
     new HtmlWebpackPlugin({
       filename: 'check_token.html',
       template: 'app/renderer/check_token.html',
+      inject: 'head'
     })
   ]
 }

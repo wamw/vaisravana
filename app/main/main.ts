@@ -6,6 +6,8 @@ import { sayHello } from '../shared/message'
 
 dotenv.config()
 
+const isProduction = process.env.NODE_ENV === 'production'
+
 const { app, BrowserWindow, ipcMain } = electron
 let mainWindow: Electron.BrowserWindow | null
 
@@ -20,7 +22,14 @@ app.on('ready', () => {
     width: 720,
     height: 720
   })
-  mainWindow.loadURL(`file://${__dirname}/../renderer/index.html`)
+
+  if (isProduction) {
+    mainWindow.loadURL(`file://${__dirname}/../renderer/index.html`)
+  } else {
+    const webpackConfig = require('../../webpack.config')
+    const root = webpackConfig.output.publicPath
+    mainWindow.loadURL(root)
+  }
 
   mainWindow.on('closed', () => {
     mainWindow = null
