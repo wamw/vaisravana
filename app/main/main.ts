@@ -55,11 +55,10 @@ interface GithubRepository {
 }
 
 ipcMain.on('request-github-repositories', async (event: Electron.Event, token: string) => {
-  const getAll = async (data: GithubRepository[], link: string = ''): Promise<{}> => {
-    if (github.hasNextPage(link)) {
-      const response = await github.getNextPage(link)
-      data = data.concat(response.data)
-      return await getAll(data, response.meta.link)
+  const getAll = async (data: GithubRepository[], next: string = ''): Promise<GithubRepository[]> => {
+    if (github.hasNextPage(next)) {
+      const response = await github.getNextPage(next)
+      return await getAll(data.concat(response.data), response.meta.link)
     }
     return Promise.resolve(data)
   }
